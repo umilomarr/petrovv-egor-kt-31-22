@@ -1,4 +1,6 @@
-﻿namespace PetrovvEgorkt_31_22.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PetrovvEgorkt_31_22.Models
 {
     public class Workload
     {
@@ -6,9 +8,11 @@
 
         // Связи с преподавателем и дисциплиной
         public int TeacherId { get; set; }
+        [JsonIgnore]
         public Teacher Teacher { get; set; }
 
         public int DisciplineId { get; set; }
+        [JsonIgnore]
         public Discipline Discipline { get; set; }
 
         // Тип занятия (лекция/практика)
@@ -16,5 +20,9 @@
 
         // Количество часов
         public int Hours { get; set; }
+        [JsonIgnore]
+        public bool IsDeleted { get; internal set; }
+
+
     }
 }

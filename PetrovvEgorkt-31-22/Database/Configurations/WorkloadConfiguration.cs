@@ -40,6 +40,14 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
                    .HasColumnName("c_hours")
                    .HasComment("Количество часов");
 
+            // Soft-delete columns
+            builder.Property(p => p.IsDeleted)
+                .HasColumnName("c_is_deleted")
+                .HasColumnType(ColumnType.Bool)
+                .HasDefaultValue(false)
+                .IsRequired()
+                .HasComment("Флаг мягкого удаления (true - запись удалена)");
+
             builder.HasOne(p => p.Teacher)
                    .WithMany()
                    .HasForeignKey(p => p.TeacherId)

@@ -49,6 +49,13 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
             builder.Property(p => p.PositionId)
                    .HasColumnName("f_position_id")
                    .HasComment("Идентификатор должности");
+            // Soft-delete columns
+            builder.Property(p => p.IsDeleted)
+                .HasColumnName("c_is_deleted")
+                .HasColumnType(ColumnType.Bool)
+                .HasDefaultValue(false)
+                .IsRequired()
+                .HasComment("Флаг мягкого удаления (true - запись удалена)");
 
             builder.HasOne(p => p.Cathedral)
                    .WithMany()
@@ -67,6 +74,13 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
                    .HasForeignKey(p => p.PositionId)
                    .OnDelete(DeleteBehavior.Restrict)
                    .HasConstraintName("fk_teacher_position");
+
+            builder.HasOne(p => p.Cathedral)
+                   .WithMany(c => c.Teachers)  // Укажите обратную навигацию
+                   .HasForeignKey(p => p.CathedralId);
+
+
+
 
             builder.Navigation(p => p.Cathedral)
                 .AutoInclude();

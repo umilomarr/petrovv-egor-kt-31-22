@@ -26,6 +26,14 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
                    .HasColumnName("c_discipline_name")
                    .HasColumnType(ColumnType.String).HasMaxLength(100)
                    .HasComment("Название дисциплины");
+
+            // Soft-delete columns
+            builder.Property(p => p.IsDeleted)
+                .HasColumnName("c_is_deleted")
+                .HasColumnType(ColumnType.Bool)
+                .HasDefaultValue(false)
+                .IsRequired()
+                .HasComment("Флаг мягкого удаления (true - запись удалена)");
         }
     }
 }

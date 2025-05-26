@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 using PetrovvEgorkt_31_22.Database;
+using static PetrovvEgorkt_31_22.ServiceExtensions.ServiceExtensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,9 @@ try
 
     builder.Services.AddDbContext<CathedralDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+    builder.Services.AddServices();
+
     var app = builder.Build();
 
     // Configure the HTTP request pipeline.

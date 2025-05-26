@@ -16,7 +16,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                 {
                     academic_degree_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор ученой степени")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    c_degree_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, comment: "Название степени")
+                    c_degree_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, comment: "Название степени"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -29,7 +30,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                 {
                     discipline_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор дисциплины")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    c_discipline_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Название дисциплины")
+                    c_discipline_name = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Название дисциплины"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -42,7 +44,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                 {
                     position_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор должности")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    c_position_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, comment: "Название должности")
+                    c_position_name = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, comment: "Название должности"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -50,13 +53,14 @@ namespace PetrovvEgorkt_31_22.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Cathedrals",
+                name: "cd_cathedral",
                 columns: table => new
                 {
                     cathedral_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор записи кафедры")
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    c_cathedral_cathedralname = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Имя кафедры"),
-                    f_head_teacher_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор заведующего кафедрой")
+                    c_cathedralname = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false, comment: "Имя кафедры"),
+                    f_head_teacher_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор заведующего кафедрой"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -74,7 +78,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                     c_teacher_middlename = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false, comment: "Отчество преподавателя"),
                     f_cathedral_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор кафедры"),
                     f_academic_degree_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор ученой степени"),
-                    f_position_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор должности")
+                    f_position_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор должности"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -88,7 +93,7 @@ namespace PetrovvEgorkt_31_22.Migrations
                     table.ForeignKey(
                         name: "fk_teacher_cathedral",
                         column: x => x.f_cathedral_id,
-                        principalTable: "Cathedrals",
+                        principalTable: "cd_cathedral",
                         principalColumn: "cathedral_id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -108,7 +113,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                     f_teacher_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор преподавателя"),
                     f_discipline_id = table.Column<int>(type: "int", nullable: false, comment: "Идентификатор дисциплины"),
                     c_lesson_type = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false, comment: "Тип занятия (лекция/практика)"),
-                    c_hours = table.Column<int>(type: "int", nullable: false, comment: "Количество часов")
+                    c_hours = table.Column<int>(type: "int", nullable: false, comment: "Количество часов"),
+                    c_is_deleted = table.Column<bool>(type: "bit", nullable: false, defaultValue: false, comment: "Флаг мягкого удаления (true - запись удалена)")
                 },
                 constraints: table =>
                 {
@@ -128,8 +134,8 @@ namespace PetrovvEgorkt_31_22.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cathedrals_f_head_teacher_id",
-                table: "Cathedrals",
+                name: "IX_cd_cathedral_f_head_teacher_id",
+                table: "cd_cathedral",
                 column: "f_head_teacher_id",
                 unique: true);
 
@@ -160,7 +166,7 @@ namespace PetrovvEgorkt_31_22.Migrations
 
             migrationBuilder.AddForeignKey(
                 name: "fk_cathedral_head_teacher",
-                table: "Cathedrals",
+                table: "cd_cathedral",
                 column: "f_head_teacher_id",
                 principalTable: "cd_teacher",
                 principalColumn: "teacher_id",
@@ -172,7 +178,7 @@ namespace PetrovvEgorkt_31_22.Migrations
         {
             migrationBuilder.DropForeignKey(
                 name: "fk_cathedral_head_teacher",
-                table: "Cathedrals");
+                table: "cd_cathedral");
 
             migrationBuilder.DropTable(
                 name: "cd_workload");
@@ -187,7 +193,7 @@ namespace PetrovvEgorkt_31_22.Migrations
                 name: "cd_academic_degree");
 
             migrationBuilder.DropTable(
-                name: "Cathedrals");
+                name: "cd_cathedral");
 
             migrationBuilder.DropTable(
                 name: "cd_position");

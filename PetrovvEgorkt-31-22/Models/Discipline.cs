@@ -4,5 +4,6 @@
     {
         public int DisciplineId { get; set; }
         public string DisciplineName { get; set; }
+        public bool IsDeleted { get; internal set; }
     }
 }

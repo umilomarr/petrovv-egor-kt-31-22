@@ -16,5 +16,6 @@
 
         public int PositionId { get; set; }
         public Position Position { get; set; }
+        public bool IsDeleted { get; internal set; }
     }
 }

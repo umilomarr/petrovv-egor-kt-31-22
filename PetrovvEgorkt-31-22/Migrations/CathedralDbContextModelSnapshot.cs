@@ -38,6 +38,13 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasColumnName("c_degree_name")
                         .HasComment("Название степени");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
+
                     b.HasKey("AcademicDegreeId")
                         .HasName("pk_cd_academic_degree_academic_degree_id");
 
@@ -58,7 +65,7 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("varchar")
-                        .HasColumnName("c_cathedral_cathedralname")
+                        .HasColumnName("c_cathedralname")
                         .HasComment("Имя кафедры");
 
                     b.Property<int>("HeadTeacherId")
@@ -66,13 +73,20 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasColumnName("f_head_teacher_id")
                         .HasComment("Идентификатор заведующего кафедрой");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
+
                     b.HasKey("CathedralId")
                         .HasName("pk_cd_cathedral_cathedral_id");
 
                     b.HasIndex("HeadTeacherId")
                         .IsUnique();
 
-                    b.ToTable("Cathedrals");
+                    b.ToTable("cd_cathedral", (string)null);
                 });
 
             modelBuilder.Entity("PetrovvEgorkt_31_22.Models.Discipline", b =>
@@ -92,6 +106,13 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasColumnName("c_discipline_name")
                         .HasComment("Название дисциплины");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
+
                     b.HasKey("DisciplineId")
                         .HasName("pk_cd_discipline_discipline_id");
 
@@ -107,6 +128,13 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasComment("Идентификатор должности");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PositionId"));
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
 
                     b.Property<string>("PositionName")
                         .IsRequired()
@@ -147,6 +175,13 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasColumnType("varchar")
                         .HasColumnName("c_teacher_firstname")
                         .HasComment("Имя преподавателя");
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -199,6 +234,13 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasColumnName("c_hours")
                         .HasComment("Количество часов");
 
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false)
+                        .HasColumnName("c_is_deleted")
+                        .HasComment("Флаг мягкого удаления (true - запись удалена)");
+
                     b.Property<string>("LessonType")
                         .IsRequired()
                         .HasMaxLength(20)
@@ -243,7 +285,7 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasConstraintName("fk_teacher_academic_degree");
 
                     b.HasOne("PetrovvEgorkt_31_22.Models.Cathedral", "Cathedral")
-                        .WithMany()
+                        .WithMany("Teachers")
                         .HasForeignKey("CathedralId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -282,6 +324,11 @@ namespace PetrovvEgorkt_31_22.Migrations
                     b.Navigation("Discipline");
 
                     b.Navigation("Teacher");
+                });
+
+            modelBuilder.Entity("PetrovvEgorkt_31_22.Models.Cathedral", b =>
+                {
+                    b.Navigation("Teachers");
                 });
 #pragma warning restore 612, 618
         }
