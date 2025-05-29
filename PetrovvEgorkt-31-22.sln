@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36109.1 d17.14
+VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetrovvEgorkt-31-22", "PetrovvEgorkt-31-22\PetrovvEgorkt-31-22.csproj", "{577E0E73-4034-46ED-9A5E-5EE6925EECEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetrovvEgorkt-31-22.Tests", "PetrovvEgorkt-31-22.Tests\PetrovvEgorkt-31-22.Tests.csproj", "{0B5AB7F0-761E-40B4-81A0-A3E005B5C0B4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{577E0E73-4034-46ED-9A5E-5EE6925EECEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{577E0E73-4034-46ED-9A5E-5EE6925EECEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{577E0E73-4034-46ED-9A5E-5EE6925EECEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0B5AB7F0-761E-40B4-81A0-A3E005B5C0B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0B5AB7F0-761E-40B4-81A0-A3E005B5C0B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0B5AB7F0-761E-40B4-81A0-A3E005B5C0B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0B5AB7F0-761E-40B4-81A0-A3E005B5C0B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

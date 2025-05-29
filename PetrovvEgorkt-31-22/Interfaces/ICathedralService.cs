@@ -42,6 +42,9 @@ namespace PetrovvEgorkt_31_22.Interfaces
 
             await _dbContext.Cathedrals.AddAsync(newCathedral, cancellationToken);
             await _dbContext.SaveChangesAsync(cancellationToken);
+
+            teacher.CathedralId = newCathedral.CathedralId;
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
         public async Task ChangeCathedralAsync(int cathedralId, string cathedralName, int headTeacherID, CancellationToken cancellationToken)
         {
@@ -59,6 +62,9 @@ namespace PetrovvEgorkt_31_22.Interfaces
             cathedral.HeadTeacherId = headTeacherID;
 
             await _dbContext.SaveChangesAsync();
+
+            teacher.CathedralId = cathedral.CathedralId;
+            await _dbContext.SaveChangesAsync(cancellationToken);
         }
         public async Task SoftDeleteCathedralAsync(int cathedralId, CancellationToken cancellationToken)
         {
