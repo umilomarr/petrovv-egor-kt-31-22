@@ -69,8 +69,9 @@ namespace PetrovvEgorkt_31_22.Interfaces
         public async Task SoftDeleteCathedralAsync(int cathedralId, CancellationToken cancellationToken)
         {
             var cathedral = await _dbContext.Cathedrals
-                .Include(c => c.Teachers) // Подгружаем связанных преподавателей
-                .FirstOrDefaultAsync(c => c.CathedralId == cathedralId, cancellationToken);
+            .Include(c => c.Teachers)
+            .FirstOrDefaultAsync(c => c.CathedralId == cathedralId, cancellationToken);
+
             if (cathedral == null)
             {
                 throw new Exception($"Cathedral with ID {cathedralId} not found!");
@@ -82,12 +83,27 @@ namespace PetrovvEgorkt_31_22.Interfaces
             }
             if (cathedral != null)
             {
+                // Получаем ID преподавателей кафедры
+                var teacherIds = cathedral.Teachers
+                    .Where(t => !t.IsDeleted)
+                    .Select(t => t.TeacherId)
+                    .ToList();
+
+
+                // 1. Удаляем кафедру
                 cathedral.IsDeleted = true;
-                foreach (var teacher in cathedral.Teachers.Where(t => !t.IsDeleted))
-                {
-                    teacher.IsDeleted = true;
-                }
                 await _dbContext.SaveChangesAsync(cancellationToken);
+
+                await _dbContext.Teachers
+            .Where(t => teacherIds.Contains(t.TeacherId))
+            .ExecuteUpdateAsync(setters => setters
+                .SetProperty(t => t.IsDeleted, true));
+
+                await _dbContext.Workloads
+           .Where(w => teacherIds.Contains(w.TeacherId) && !w.IsDeleted)
+           .ExecuteUpdateAsync(setters => setters
+               .SetProperty(w => w.IsDeleted, true));
+               
             }
         }
     }

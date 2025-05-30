@@ -315,7 +315,7 @@ namespace PetrovvEgorkt_31_22.Migrations
                         .HasConstraintName("fk_workload_discipline");
 
                     b.HasOne("PetrovvEgorkt_31_22.Models.Teacher", "Teacher")
-                        .WithMany()
+                        .WithMany("Workloads")
                         .HasForeignKey("TeacherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
@@ -329,6 +329,11 @@ namespace PetrovvEgorkt_31_22.Migrations
             modelBuilder.Entity("PetrovvEgorkt_31_22.Models.Cathedral", b =>
                 {
                     b.Navigation("Teachers");
+                });
+
+            modelBuilder.Entity("PetrovvEgorkt_31_22.Models.Teacher", b =>
+                {
+                    b.Navigation("Workloads");
                 });
 #pragma warning restore 612, 618
         }

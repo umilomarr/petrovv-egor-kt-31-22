@@ -1,8 +1,12 @@
-﻿namespace PetrovvEgorkt_31_22.Models
+﻿using System.Text.Json.Serialization;
+
+namespace PetrovvEgorkt_31_22.Models
 {
     public class Teacher
     {
         public int TeacherId { get; set; }
+        [JsonIgnore]
+        public ICollection<Workload> Workloads { get; set; } = new List<Workload>();
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -16,6 +20,7 @@
 
         public int PositionId { get; set; }
         public Position Position { get; set; }
+        
         public bool IsDeleted { get; internal set; }
     }
 }

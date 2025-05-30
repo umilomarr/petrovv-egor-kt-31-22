@@ -25,6 +25,7 @@ namespace PetrovvEgorkt_31_22.Interfaces
         {
             return await _dbContext.Workloads
                 .Where(d => !d.IsDeleted)
+                .Include(w => w.Teacher)
                 .ToArrayAsync(cancellationToken);
         }
         public async Task AddWorkloadAsync(int teacherId, int disciplineId, string lessonType, int hours, CancellationToken cancellationToken)

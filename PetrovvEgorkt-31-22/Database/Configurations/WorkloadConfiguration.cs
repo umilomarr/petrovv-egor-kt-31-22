@@ -49,7 +49,7 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
                 .HasComment("Флаг мягкого удаления (true - запись удалена)");
 
             builder.HasOne(p => p.Teacher)
-                   .WithMany()
+                   .WithMany(t => t.Workloads)
                    .HasForeignKey(p => p.TeacherId)
                    .OnDelete(DeleteBehavior.Cascade)
                    .HasConstraintName("fk_workload_teacher");

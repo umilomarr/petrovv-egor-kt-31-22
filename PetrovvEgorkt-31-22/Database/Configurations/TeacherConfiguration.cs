@@ -58,7 +58,7 @@ namespace PetrovvEgorkt_31_22.Database.Configurations
                 .HasComment("Флаг мягкого удаления (true - запись удалена)");
 
             builder.HasOne(p => p.Cathedral)
-                   .WithMany()
+                   .WithMany(c => c.Teachers)
                    .HasForeignKey(p => p.CathedralId)
                    .OnDelete(DeleteBehavior.Cascade)
                    .HasConstraintName("fk_teacher_cathedral");
